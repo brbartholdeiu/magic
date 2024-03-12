@@ -1,1 +1,33 @@
 
+
+
+<script>
+function konamiCode() {
+    return {
+        showMagic: false, // Controls the visibility of the GIF
+        konamiSequence: [], // Stores the sequence of key codes entered by the user
+        correctSequence: [38,38,40,40,37,39,37,39,66,65], // Konami Code sequence: ↑↑↓↓←→←→BA
+
+        init() {
+            window.addEventListener('keyup', (e) => {
+                this.konamiSequence.push(e.keyCode); // Add the latest key code to the sequence
+                
+                // If the sequence is longer than the Konami Code, remove the oldest entry
+                if (this.konamiSequence.length > this.correctSequence.length) {
+                    this.konamiSequence.shift();
+                }
+
+                // Check if the current sequence matches the Konami Code
+                if (this.konamiSequence.every((value, index) => value === this.correctSequence[index])) {
+                    this.toggleMagic();
+                }
+            });
+        },
+
+        toggleMagic() {
+            this.showMagic = !this.showMagic; // Toggle the visibility of the GIF
+        }
+    }
+}
+</script>
+
